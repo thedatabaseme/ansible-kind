@@ -11,7 +11,8 @@ Requirements
 ------------
 
  - Ansible 2.7 or higher.
- - ansible-kind will only work on Debian OS family (Debian, Ubuntu...) as for now
+ - ansible-kind `install` will only work on Debian OS family (Debian, Ubuntu...) as for now.
+   Cluster management will work regardless of which Linux OS family you're using.
 
 All required software for kind will be installed using this role. You don't need to install
 software manually. For instance, Docker is needed and will be installed.
