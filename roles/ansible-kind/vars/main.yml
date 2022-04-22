@@ -1,0 +1,16 @@
+---
+
+kind_git: "https://api.github.com/repos/kubernetes-sigs/kind"
+kind_repo: "https://kind.sigs.k8s.io/dl/{{ kind_version }}/kind-linux-amd64"
+
+required_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+  - kubectl
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io

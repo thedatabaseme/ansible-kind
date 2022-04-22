@@ -1,0 +1,50 @@
+---
+
+- name: Add GPG apt keys
+  apt_key:
+    url: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    - https://download.docker.com/linux/ubuntu/gpg
+  tags:
+    - install
+
+- name: Add repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  become: true
+  with_items:
+    - "deb https://download.docker.com/linux/ubuntu focal stable"
+    - "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+  tags:
+    - install
+
+- name: Install prerequisite Packages
+  apt:
+    name: "{{ required_packages }}"
+    state: present
+    update_cache: true
+  become: true
+  tags:
+    - install
+
+- name: Update apt and install docker-ce
+  apt:
+    name: "{{ docker_packages }}"
+    state: latest
+    update_cache: true
+  become: true
+  tags:
+    - install
+
+- name: Add docker group to users {{ ansible_user }} groups
+  user:
+    name: "{{ ansible_user }}"
+    append: true
+    groups: docker
+  become: true
+  tags:
+    - install

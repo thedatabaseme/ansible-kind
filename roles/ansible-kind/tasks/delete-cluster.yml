@@ -1,0 +1,20 @@
+---
+
+- name: Check if cluster {{ cluster_name }} is running
+  shell: "kind get clusters | grep -w {{ cluster_name }}"
+  failed_when: false
+  register: cluster_list
+  tags:
+    - delete
+
+- name: Cluster {{ cluster_name }} does not exist
+  fail:
+    msg: "Cluster {{ cluster_name }} seems not to be running on this system."
+  when: cluster_list.stdout | length == 0
+  tags:
+    - delete
+
+- name: Delete kind cluster {{ cluster_name }}
+  shell: "kind delete cluster --name {{ cluster_name }}"
+  tags:
+    - delete

@@ -1,0 +1,8 @@
+---
+
+kind_version: latest
+kind_install_dir: /usr/local/bin
+cluster_name: kind
+
+control_nodes: 1
+worker_nodes: 2

@@ -1,0 +1,20 @@
+---
+
+- name: Copy cluster config template
+  template:
+    src: "{{ role_path }}/templates/cluster-config.yaml.j2"
+    dest: "/tmp/cluster-config.yaml"
+    mode: 0644
+  tags:
+    - create
+
+- name: Create kind cluster
+  shell: "kind create cluster --name {{ cluster_name }} --config /tmp/cluster-config.yaml"
+  tags:
+   - create
+
+- name: Cluster creation has been finished
+  debug:
+    msg: "Cluster creation of kind cluster {{ cluster_name }} has been finished."
+  tags:
+    - create

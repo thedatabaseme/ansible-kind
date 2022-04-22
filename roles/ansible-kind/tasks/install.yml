@@ -1,0 +1,17 @@
+---
+
+- name: Download kind to specified location {{ kind_install_dir }}
+  get_url:
+    url: "{{ kind_repo }}"
+    dest: "{{ kind_install_dir }}/kind"
+    mode: 0755
+    force: true
+  become: true
+  tags:
+    - install
+
+- name: Installation has been finished
+  debug:
+    msg: "Installation of kind version {{ kind_version }} has been finished!"
+  tags:
+    - install
